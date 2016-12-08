@@ -1,0 +1,186 @@
+*{ margin: 0; padding:0;}
+ul,li{ list-style-type: none;}
+
+/*主体部分*/
+#content{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+}
+.content-warp{
+	position: relative;
+}
+.content-warp > li{
+	float:left;
+	overflow: hidden;
+	position:relative;
+}
+
+/*boy*/
+.charactor{
+	width: 151px;
+	height: 291px;
+	background:url(../images/boy.png) no-repeat -0px -291px;
+	position: absolute;
+	left: 6%;
+	top: 55%;
+}
+
+/* 普通慢走 */
+@-moz-keyframes person-show{
+	0% {
+        background-position: -0px -291px;
+    }
+    25% {
+        background-position: -602px -0px;
+    }
+    50% {
+        background-position: -302px -291px;
+    }
+    75% {
+        background-position: -151px -291px;
+    }
+    100% {
+        background-position: -0px -291px;
+    }
+}
+@-webkit-keyframes person-show{
+	0% {
+        background-position: -0px -291px;
+    }
+    25% {
+        background-position: -602px -0px;
+    }
+    50% {
+        background-position: -302px -291px;
+    }
+    75% {
+        background-position: -151px -291px;
+    }
+    100% {
+        background-position: -0px -291px;
+    }
+}
+
+.slowWalk {
+	-moz-animation-name: person-show;
+    -moz-animation-duration: 950ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: steps(1, start);
+    -webkit-animation-name: person-show;
+    -webkit-animation-duration: 950ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: steps(1, start);
+}
+
+/* 人物暂停 */
+.pauseWalk {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+}
+
+
+/* 太阳  */
+#sun{
+	position: absolute;
+	background: url(../images/sun.png) no-repeat;
+ 	z-index: 1;
+    top: -30px;
+    right: 100px;
+    height: 201px;
+    width: 201px;
+}
+.rotation {
+	-moz-animation-name: sun;
+	-moz-animation-direction: 30s;
+	-webkit-animation: sun 30s;
+}
+@-moz-keyframes sun{
+	0%{
+		transform: translate(0,0);
+	}
+	100%{
+		transform: translate(2000px,400px);
+	}
+}
+@-webkit-keyframes sun{
+	0%{
+		transform: translate(0,0);
+	}
+	100%{
+		transform: translate(-2000px,400px);
+	}
+}
+
+
+
+/* 云   */
+.cloud {
+    z-index: 2;
+    position: absolute;
+}
+
+.cloud1 {
+    width: 181px;
+    height: 101px;
+    left: -5%;
+    top: 15%;
+    background: url(../images/cloud1.png);
+}
+
+
+.cloud2 {
+    width: 301px;
+    height: 140px;
+    right: -5%;
+    background: url(../images/cloud2.png);
+}
+
+.cloud1Anim{
+	-moz-animation-name: smallCloud;
+	-moz-animation-direction: 30s;
+	-moz-animation-iteration-count: infinite;
+	-webkit-animation: smallCloud 30s infinite;
+}
+
+.cloud2Anim{
+	-moz-animation: largeCloud 30s infinite;
+	-webkit-animation: largeCloud 30s infinite;
+}
+
+@-moz-keyframes smallCloud{
+	0%{
+		left: -5%;
+	}
+	100%{
+		left: 100%;
+	}
+}
+
+@-Webkit-keyframes smallCloud{
+	0%{
+		left: -5%;
+	}
+	100%{
+		left: 100%;
+	}
+}
+
+@-moz-keyframes largeCloud{
+	0%{
+		right: -5%;
+	}
+	100%{
+		right: 100%;
+	}
+}
+
+@-Webkit-keyframes largeCloud{
+	0%{
+		right: -5%;
+	}
+	100%{
+		right: 100%;
+	}
+}
