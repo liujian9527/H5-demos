@@ -1,4 +1,45 @@
-
+//	///////////
+//	//灯动画 //
+//	//////////	
+//	var lamp = {
+//	    elem: $('.b_background'),
+//	    bright: function() {
+//	        this.elem.addClass('lamp-bright');
+//	    },
+//	    dark: function() {
+//	        this.elem.removeClass('lamp-bright');
+//	    }
+//	};
+//	function doorAction(left, right, time) {
+//	    var $door = $('.door');
+//	    var doorLeft = $('.door-left');
+//	    var doorRight = $('.door-right');
+//	    var defer = $.Deferred();
+//	    var count = 2;
+//	    // 等待开门完成
+//	    var complete = function() {
+//	        if (count == 1) {
+//	            defer.resolve();
+//	            return;
+//	        }
+//	        count--;
+//	    };
+//	    doorLeft.transition({
+//	        'left': left
+//	    }, time, complete);
+//	    doorRight.transition({
+//	        'left': right
+//	    }, time, complete);
+//	    return defer;
+//	}
+//	// 开门
+//	function openDoor() {
+//	    return doorAction('-50%', '100%', 2000);
+//	}
+//	// 关门
+//	function shutDoor() {
+//	    return doorAction('0%', '50%', 2000);
+//	}
 function BoyWalk(){
 
 	var container=$('#content'); 
@@ -57,7 +98,7 @@ function BoyWalk(){
 	    // 恢复走路
 	    restoreWalk();
 	    // 运动的属性
-		$boy.animate(
+		$boy.transition(
 			options,
 			runTime,
 			'linear',
@@ -84,23 +125,68 @@ function BoyWalk(){
 	//var disX=calculateDist('x',0.6);
 	//var disY=calculateDist('y',0.5);
 	//walkRun(15000,disX,disY);
-	
-	
-	//走进商店
-	function walkToShop(runTime){
-		var defer=$.Deferred();
-		var doorObj = $('.door');
-		//门坐标
-		var offsetDoor = doorObj.offset().left;
-		//小孩当前坐标
-		var offsetBoy= $boy.offset();
-		var boyOffetLeft = offsetBoy.left;
 		
-		console.log(offsetDoor)
-		console.log(boyOffetLeft)
+    // 走进商店
+    var instanceX;
+    function walkToShop(runTime) {
+        var defer = $.Deferred();
+        var doorObj = $('.door');
+        // 门的坐标
+        var offsetDoor = doorObj.offset();
+        var doorOffsetLeft = offsetDoor.left;
+        // 小孩当前的坐标
+        var offsetBoy = $boy.offset();
+        var boyOffetLeft = offsetBoy.left;
+        // 当前需要移动的坐标
+        instanceX = (doorOffsetLeft + doorObj.width() / 2) - (boyOffetLeft + $boy.width() / 2);
+		console.log(instanceX)
+        // 开始走路
+        var walkPlay = stratRun({
+			transform: "translateX(" + instanceX + "px),scale(0.3,0.3)",
+			opacity: 0.1
+		}, 2000);
+        
+        // 走路完毕
+        walkPlay.done(function() {
+            $boy.css({
+                opacity: 0
+            })
+            defer.resolve();
+        })
+        return defer;
+    }
+
+    // 走出店
+    function walkOutShop(runTime) {
+        var defer = $.Deferred();
+        restoreWalk();
+        //开始走路
+        var walkPlay = stratRun({
+            transform: 'translateX(' + instanceX + 'px),scale(1,1)',
+           opacity: 1
+        }, runTime);
+        //走路完毕
+        walkPlay.done(function() {
+            defer.resolve();
+        });
+        return defer;   
+    }
+	
+	
+	
+	//取花
+		
+	function talkFlower(){
+		//增加延时等待效果
+		var defer=$.Deferred();
+		setTimeout(function(){
+			$boy.addClass('slowFlolerWalk');
+			defer.resolve();
+		},1000)
+		return defer;
 	}
-	
-	
+
+
     return {
         // 开始走路
         walkTo: function(time, proportionX, proportionY) {
@@ -108,66 +194,22 @@ function BoyWalk(){
             var distY = calculateDist('y', proportionY)
             return walkRun(time, distX, distY);		/* return 获取Deferred对象  执行后续then操作 */
         },
+    	// 走进商店
+        toShop: function() {
+            return walkToShop.apply(null, arguments);
+        },
+        // 走出商店
+        outShop: function() {
+            return walkOutShop.apply(null, arguments);
+        }, 
         // 停止走路
         stopWalk: function() {
             pauseWalk();
+        },
+        // 取花
+        talkFlower: function() {
+            return talkFlower();
         }
     }
 
 }
-
-
-///////////
-//灯动画 //
-///////////
-var lamp = {
-    elem: $('.b_background'),
-    bright: function() {
-        this.elem.addClass('lamp-bright');
-    },
-    dark: function() {
-        this.elem.removeClass('lamp-bright');
-    }
-};
-	
-openDoor().then(function(){
-	lamp.bright();
-});
-shutDoor().then(function(){
-	lamp.dark();
-});
-
-
-function doorAction(left, right, time) {
-    var $door = $('.door');
-    var doorLeft = $('.door-left');
-    var doorRight = $('.door-right');
-    var defer = $.Deferred();
-    var count = 2;
-    // 等待开门完成
-    var complete = function() {
-        if (count == 1) {
-            defer.resolve();
-            return;
-        }
-        count--;
-    };
-    doorLeft.animate({
-        'left': left
-    }, time, complete);
-    doorRight.animate({
-        'left': right
-    }, time, complete);
-    return defer;
-}
-
-// 开门
-function openDoor() {
-    return doorAction('-50%', '100%', 2000);
-}
-// 关门
-function shutDoor() {
-    return doorAction('0%', '50%', 2000);
-}
-
-
