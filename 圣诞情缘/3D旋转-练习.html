@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{ margin: 0; padding: 0;}
+			.cont{
+				width: 200px;
+				height: 100px;
+				perspective: 500px;
+				position: absolute;
+				left: 400px;
+				top: 200px;
+			}
+			.box{
+				width: 200px;
+				height: 100px;
+				transform-style: preserve-3d;	
+			}
+			.box div{position: absolute; width: 100%; height: 100%;}
+			.box1{ background: yellow; transform: rotateY(0) translateZ(150px) scaleY(.9);}
+			.box2{ background: orange; transform: rotateY(120deg) translateZ(150px) scaleY(.9);}
+			.box3{ background: blueviolet; transform: rotateY(240deg) translateZ(150px) scaleY(.9);}
+		</style>
+		<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    	<script type="text/javascript">
+    		$(function(){
+    			var i=0;
+    			var Deg=120;
+    			var x;
+//  			setInterval(function(){
+//  				i++;
+    				x=(i*Deg)+360;
+    				$('.box').css({
+    					"transition":"1s",
+    					"transform":'rotateY(-' + x + 'deg)'
+    				})
+//  			},1000)
+   
+    		})
+    	</script>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="box">
+				<div class="box1"></div>
+				<div class="box2"></div>
+				<div class="box3"></div>
+			</div>
+		</div>
+	</body>
+</html>

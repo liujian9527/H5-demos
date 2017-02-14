@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/index.css"/>
+<style>
+*{ margin: 0; padding: 0;}
+	.page{
+        width: 5.22rem;
+        height: 10rem;
+        background: yellow;
+        font-size: 0.3rem;
+    }
+</style>
+</head>
+<body>
+	<div class="container"></div>
+	<div class="page">rem跟着html:font-size变化</div>
+<script>
+//	var docEl=document.documentElement,
+//	resizeEvt='onorientationchange' in window ? 'orientationchange' : 'resize',
+//	recalc=function(){
+//		//设置字体大小
+//		docEl.style.fontSize=20 * (docEl.clientWidth/320)+ 'px'
+//	}
+//	window.addEventListener(resizeEvt, recalc, false);
+//	document.addEventListener('DOMContentLoaded', recalc, false);
+window.onload=function(){
+	var scale = 1 / devicePixelRatio;
+	document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+	document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';	
+}
+</script>
+</body>
+</html>

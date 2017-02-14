@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="css/index.css"/>
+<link rel="stylesheet" type="text/css" href="css/PageA.css" />
+<link rel="stylesheet" type="text/css" href="css/PageB.css" />
+<link rel="stylesheet" type="text/css" href="css/PageC.css"/>
+<script type="text/javascript" src="js/jquery.js" ></script>
+<script src="js/jQueryTransit.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/Swipe.js" ></script>
+<script type="text/javascript" src="js/BoyWalk-1219.js"></script>
+<body>
+<div id="content">
+	<ul class="content-warp">
+		<li>
+			<div class="a_background">
+                <div class="a_background_top"></div>
+                <div class="a_background_middle"></div>
+                <div class="a_background_botton"></div>
+                
+                <div id="sun" class="rotation"></div>
+                <div class="cloud cloud1 cloud1Anim"></div>
+                <div class="cloud cloud2 cloud2Anim"></div>
+            </div>
+		</li>
+		<!-- 第二副画面 -->
+        <li>
+            <!-- 背景图 -->
+            <div class="b_background_preload"></div>
+            <div class="b_background"></div>
+            <!-- 商店 -->
+            <div class="shop">
+                <div class="door">
+                	<!--door 相对 shop定位-->
+                    <div class="door-left"></div>
+                    <div class="door-right"></div>
+                </div>
+                <!-- 灯 -->
+                <div class="lamp"></div>
+            </div>
+            <div class="bird birdFly"></div>
+        </li>
+		<li>
+			<div class="c_background">
+				<div class="c_background_top"></div>
+				<div class="c_background_middle"></div>
+				<div class="c_background_botton"></div>
+			</div>
+			<div class="girl"></div>
+			<div class="bridge-bottom">
+				<div class="water">
+					 <div id="water1" class="water_1"></div>
+					 <div id="water2" class="water_2"></div>
+					 <div id="water3" class="water_3"></div>
+					 <div id="water4" class="water_4"></div>
+				</div>
+			</div>
+			<!-- 星星 -->
+			<ul class="stars">
+				<li class="stars1"></li>
+				<li class="stars2"></li>
+				<li class="stars3"></li>
+				<li class="stars4"></li>
+				<li class="stars5"></li>
+				<li class="stars6"></li>
+			</ul>
+			<!-- 慕课网logo图 -->
+            <div class="logo"></div>
+            
+		</li>
+	</ul>
+	<div id="boy" class="charactor"></div>
+		
+	<!-- 飘花 -->
+    <div id="snowflake"></div>
+</div>
+
+
+<script>
+	$(function (){
+		var container=$('#content'); 
+		// 页面可视区域*
+		var visualWidth = container.width();
+		var visualHeight = container.height();
+		
+		var swipe=Swipe(container);
+		// 页面滚动到指定的位置
+        function scrollTo(time, proportionX) {
+            var distX = container.width() * proportionX;
+            swipe.scrollTo(distX, time);
+        }
+        
+        swipe.scrollTo(container.width()*2,0);      
+
+// 获取数据 *
+var getValue=function(className){
+	var $ele=$(''+className+'');
+	// 走路的路线坐标
+	return {
+		top: $ele.position().top,
+		height: $ele.height()
+	}
+};
+// 桥的Y轴*
+var bridgeY = function() {
+    var data = getValue('.c_background_middle');
+    return data.top;
+}();
+
+var girl={
+		elem:$('.girl'),
+		getHeight:function(){
+			return this.elem.height();
+		},
+		//转身动作
+		rotate: function() {
+	        this.elem.addClass('girl-rotate');
+	    },
+	    setOffset: function(){
+	    	this.elem.css({
+	    		left: visualWidth / 2,
+	    		top: bridgeY - this.getHeight()
+	    	})
+	    },
+	    getOffset: function() {
+	        return this.elem.offset();
+	    },
+	    getWidth: function() {
+	        return this.elem.width();
+	    }
+	}
+
+	// 修正小女孩位置
+	girl.setOffset();
+    //loge动画 
+    var logo = {
+        elem: $('.logo'),
+        run: function() {
+            this.elem.addClass('logolightSpeedIn')
+                .on('animationend', function() {
+                    $(this).addClass('logoshake').off();
+                });
+        }
+    };
+    
+	var boy = BoyWalk();
+	// 第一次走路到桥底边left,top
+    boy.walkTo(2000, 0.15)
+        .then(function() {
+            // 第二次走路到桥上left,top
+            return boy.walkTo(1500, 0.25, (bridgeY - girl.getHeight()) / visualHeight);
+        })
+        .then(function() {
+            // 实际走路的比例
+            var proportionX = (girl.getOffset().left - girl.getWidth()+girl.getWidth()/5) / visualWidth;
+            // 第三次桥上直走到小女孩面前
+            return boy.walkTo(1500, proportionX);
+        }).then(function() {
+            // 图片还原原地停止状态
+            boy.resetOriginal();
+        }).then(function() {
+            // 增加转身动作 
+            setTimeout(function() {
+                girl.rotate();
+                boy.rotate(function() {
+                    // 开始logo动画
+                    logo.run();
+                });
+            }, 1000);
+        });
+	
+	function startRun() {
+		boy.walkTo(2000, 0.2)
+		.then(function() {
+            //第一次走路完成
+             scrollTo(5000, 1);
+        })
+		.then(function() {
+            // 第二次走路
+            return boy.walkTo(5000, 0.5);
+        })
+//			boy.walkTo(2000, 0.5)
+		.then(function(){
+			//暂停走路
+            boy.stopWalk()
+		}).then(function() {
+            //开门
+            return openDoor();
+       }).then(function() {
+            //开灯
+            lamp.bright()
+       }).then(function() {
+            // 飞鸟
+            bird.fly();
+        }).then(function() {
+            //进商店
+            return boy.toShop(2000)
+        }).then(function(){
+            // 取花
+            return boy.talkFlower();
+        }).then(function() {
+            // 出商店
+            return boy.outShop(2000);
+        }).then(function(){
+		    // 关门
+		    return shutDoor();
+		}).then(function() {
+		    // 灯暗
+		    lamp.dark();
+		}).then(function(){
+			
+			scrollTo(5000, 2);
+			return boy.walkTo(5000, 0.3);
+		})
+
+	};
+	//startRun()
+    //Xue hua 
+    var snowflakeURL=[
+    	'snowflake1.png',
+    	'snowflake2.png',
+    	'snowflake3.png',
+    	'snowflake4.png',
+    	'snowflake5.png',
+    	'snowflake6.png'
+    ]
+    
+    function snowflake(){
+	    //雪花容器
+	    var $flakeContainer=$('#snowflake');
+	   	//随机背景
+	   	function getImgName(){
+	   		return snowflakeURL[Math.floor(Math.random()*6)]
+	   	}
+	   	//console.log(getImgName())
+	   	
+	   	//创建一个雪花元素
+	   	function creatSnowBox(){
+	   		var Url=getImgName();
+	   		return $('<div class="snowbox" />').css({
+	   			'width':41,
+	   			'height':41,
+	   			'position':'absolute',
+	   			'top':0,
+	   			'backgroundSize':'cover',
+	   			'zIndex':10000,
+	   			'backgroundImage': 'url(images/snowflake/'+Url+')',
+	   			
+	   		}).addClass('snowRoll');
+	   		
+	   	}
+	   	//开始飘雪
+	   	setInterval(function(){
+	   		//运动轨迹
+	   		var startPositionLeft= Math.random()*visualWidth-100,
+	   			startOpacity    = 1,
+	   			endPositionTop=visualHeight - 40;
+	   			endPositionLeft=startPositionLeft-100+Math.random()*500,
+	   			duration=visualHeight * 10 + Math.random() * 5000;
+	   		// 随机透明度，不小于0.5
+	   		var randomStart=Math.random();
+	   		randomStart= randomStart < 0.5 ? startOpacity : randomStart;
+	   		// 创建一个雪花
+		   	var $flake=creatSnowBox();
+		   	$flake.css({
+		   		'left':startPositionLeft,
+		   		
+		   		'opacity':randomStart
+		   	});
+		   	
+		    // 加入到容器
+		    $flakeContainer.append($flake);
+		    $flake.transition({
+		    	top:endPositionTop,
+		    	left:endPositionLeft,
+		    	opacity:0.7
+		    },duration,'ease-out',function(){
+		    	$(this).remove()
+		    })
+	   	},200)
+   	}
+	snowflake();
+	//音乐配置
+	var audioConfig={
+		enable:true,
+		playURL:'music/happy.wav',
+		cycleURL:'music/circulation.wav'//循环
+	}
+	//背景音乐
+	var i=1
+	function HtmlAudio(url,isloop){
+		var audio= new Audio(url);
+		audio.autoplay=true;
+		audio.loop= isloop || false;
+		audio.play();
+		return {
+			end:function(callback){
+				audio.addEventListener('ended',function(){
+					callback()
+				},false)
+			}
+		};
+	}
+	var audio1=HtmlAudio(audioConfig.playURL);
+	audio1.end(function(){HtmlAudio(audioConfig.cycleURL)})
+
+})
+</script>
+
+
+
+</body>
+</html>
+<!--
+	charactor 特征
+	Promises 承诺
+-->

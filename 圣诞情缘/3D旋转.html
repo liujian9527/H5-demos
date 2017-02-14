@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{ margin: 0; padding: 0;}
+			.box0{
+			   left: 300px; top: 300px;
+			   position: absolute;
+			   perspective: 500px;
+			}
+			.box{
+			   width: 80px;
+			   height: 60px;
+			   transform-style: preserve-3d;
+			  
+			}
+			.box div{ width: 80px;height: 60px; position: absolute; }
+			/*.box1{ background: green; transform: rotateY(0deg) translateZ(50px) scaleY(.9); }
+			.box2{ background: red; transform: rotateY(120deg) translateZ(50px) scaleY(.9);  }
+			.box3{ background: orange; transform: rotateY(240deg) translateZ(50px) scaleY(.9); }*/
+			.box1{ background: green; transform: rotateY(0deg) translateZ(80px) scaleY(.9); }
+			.box2{ background: red; transform: rotateY(60deg) translateZ(80px) scaleY(.9);  }
+			.box3{ background: orange; transform: rotateY(120deg) translateZ(80px) scaleY(.9); }
+			
+			.box4{ background: greenyellow; transform: rotateY(180deg) translateZ(80px) scaleY(.9); }
+			.box5{ background: pink; transform: rotateY(240deg) translateZ(80px) scaleY(.9);  }
+			.box6{ background: blue; transform: rotateY(300deg) translateZ(80px) scaleY(.9); }
+			.box7{ background: yellow; transform: rotateY(360deg) translateZ(80px) scaleY(.9); }
+		</style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    	
+	    var count = 0;
+	    var rotate = 60;
+	    var angle;
+	    $("button").on("click", function() {
+	        angle = (count++) * rotate + 360
+	        $(".box")
+	            .css({
+	                "transform": "rotateY(-" + angle + "deg)",
+	                "transition":"1s"
+	            })
+	            .css({
+	                "-moz-transform": "rotateY(-" + angle + "deg)",
+	                "-moz-transition":"1s"
+	            })
+	    })
+    	
+    })
+    </script>
+	</head>
+	<body>
+	<!--<button>点击</button>-->
+	<button>点击旋转</button>
+	<div class="box0">
+		<div class="box">
+			<div class="box1"></div>
+			<div class="box2"></div>
+			<div class="box3"></div>
+			<div class="box4"></div>
+			<div class="box5"></div>
+			<div class="box6"></div>
+			<div class="box7"></div>
+		</div>
+	</div>
+	</body>
+</html>

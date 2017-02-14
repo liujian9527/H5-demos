@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<script>
+var audioConfig={
+	enable:true,
+	playURL:'music/happy.wav',
+	cycleURL:'music/circulation.wav'//循环
+}
+
+function HtmlAudio(URL,isloop){
+	var audio=new Audio(URL);
+	audio.autoplay=true;
+	audio.loop=isloop || false;
+	audio.play();
+	return {
+		end:function(callBack){
+			audio.addEventListener('ended',function(){
+				callBack();
+			},false)
+		}
+	}	
+}
+var audio1=HtmlAudio(audioConfig.playURL)
+audio1.end(function(){HtmlAudio(audioConfig.cycleURL)})	
+</script>
+</body>
+</html>

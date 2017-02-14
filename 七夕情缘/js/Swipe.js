@@ -3,10 +3,6 @@
 /////////
 
 /**
- * [Swipe description]
- * @param {[type]} container [页面容器节点]
- * @param {[type]} options   [参数]
- * 
  * 两部分
  * 1.页面布局
  * 		根据容器尺寸 获取活动页面大小
@@ -17,7 +13,6 @@
 */
 
 
-
 function Swipe(container){
 	//获取第一个子节点 
 	var el=container.find(':first');  //ul
@@ -26,8 +21,7 @@ function Swipe(container){
 	var swipe={};
 	
 	//li页面数量
-	var slides=el.find('li');
-	
+	var slides = el.find(">");
 	//获取容器尺寸
 	var iWidth=container.width();
 	var iHeight=container.height();
@@ -54,7 +48,8 @@ function Swipe(container){
             'transition-duration'        : speed + 'ms',
             'transform'                  : 'translate3d(-' + x + 'px,0px,0px)'
        });
-		return this;
+       console.log(this)    //Swipe(container)
+	   return this;	   		//方便链式调用 Swipe(container).scrollTo().scrollTo();
 	}
 	
 	return swipe;

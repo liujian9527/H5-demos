@@ -1,0 +1,294 @@
+.walk-stop {
+    animation-play-state: paused;
+}
+
+.walk-run {
+    animation-play-state: running;
+}
+
+.christmas-boy {
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 5;
+    right: -3.5rem;
+    top: 4rem;
+    background: url(../images/b/boy.png);
+    background-size: 1500% 100%;
+    background-position: 0% 100%;
+}
+
+/**
+ * 男孩头部
+ */
+
+.christmas-boy-head {
+    left: 7.85rem;
+    top: 4rem;
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 12;
+    background: url(../images/b/boy.png);
+    background-size: 1400% 100%;
+    background-position: -1300% 100%;
+    display: none;
+}
+/*走*/
+.boy-walk{
+
+	animation: boyWalk 0.75s steps(4, end) infinite;
+}
+@keyframes boyWalk{
+	0%{
+		background-position: 0% 100%;
+	}
+	100%{
+		background-position: -400% 100%;
+	}
+}
+/*站立动作*/
+.boy-stand {
+    background-position: -400% 100%;
+}
+/*脱衣*/
+.boy-strip-1 {
+    background-position: -800% 100%;
+}
+
+.boy-strip-2 {
+    background-position: -900% 100%;
+}
+
+.boy-strip-3 {
+    background-position: -1000% 100%;
+}
+/*打开包裹*/
+.boy-unwrapp {
+    animation: unwrapp 2s steps(2, end) 1 forwards;
+}
+@keyframes unwrapp {
+    0% {
+        background-position: -400% 100%;
+    }
+    100% {
+        background-position: -600% 100%;
+    }
+}
+
+/**
+ * 男孩拥抱
+ */
+
+.boy-hug {
+    animation: boyHug 1s steps(3, end) 1 forwards;
+}
+
+@keyframes boyHug {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1300% 100%;
+    }
+}
+
+
+
+
+
+/*女孩*/
+.girl {
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    top: 3.2rem;
+    background: url(../images/b/girl.png);
+    background-size: 2100% 100%;
+}
+
+.girl-standUp {
+    left: 1.2rem;
+    animation: standUp 200ms steps(3, start) forwards;
+}
+
+@keyframes standUp {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+        top: 4rem;
+    }
+}
+/**
+ * 抛书动作
+ */
+.girl-throwBook {
+    top: 4rem;
+    left: 0.5rem;
+    animation: throwBook 300ms steps(2, start) forwards;
+}
+@keyframes throwBook {
+    0% {
+        background-position: -300% 100%;
+    }
+    100% {
+        background-position: -500% 100%;
+    }
+}
+/*小女孩走路*/
+.girl-walk {
+    left: 1rem;
+    animation: girlWalk 900ms steps(4, start) infinite;
+}
+
+@keyframes girlWalk {
+    0% {
+        background-position: -500% 100%;
+    }
+    100% {
+        background-position: -900% 100%;
+    }
+}
+
+/*站立动作*/
+.girl-stand {
+    top: 4rem;
+    background-position: -1000% 100%;
+}
+/*小女孩选择3d选择*/
+.girl-choose {
+    animation: girlChoose 1000ms steps(2, end) forwards;
+}
+
+@keyframes girlChoose {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1200% 100%;
+    }
+}
+/*流泪奔跑*/
+.girl-weep {
+    animation: girlWeep 450ms steps(4, end) forwards infinite;
+}
+
+@keyframes girlWeep {
+    0% {
+        background-position: -1300% 100%;
+    }
+    100% {
+        background-position: -1700% 100%;
+    }
+}
+
+/*女孩拥抱*/
+.girl-hug {
+    animation: girlHug 450ms steps(3, end) forwards;
+}
+
+@keyframes girlHug {
+    0% {
+        background-position: -1700% 100%;
+    }
+    100% {
+        left: 7.85rem;
+        background-position: -2000% 100%;
+    }
+}
+
+
+.cat {
+	width: 1.36rem;
+	height:.88rem;
+	position: absolute;
+	z-index: 3;
+	left: 3.5rem;
+	top: 5.5rem;
+	background: url(../images/b/cat.png);
+	background-size: 100% 100%
+}
+.cat-book {
+	background: url(../images/b/cat-book.png);
+	background-size: 100% 100%
+}
+
+
+/**/
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+.bounceIn {
+  animation-duration: 1s;
+  animation-name: bounceIn;
+}
+
+@keyframes bounceOut {
+  20% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+.bounceOut {
+  animation-duration: 1s;
+  animation-name: bounceOut;
+}
+
+.maxScale{
+	animation:maxScale 1s linear forwards;
+}
+@keyframes maxScale{
+	
+	100%{
+		transform: scale(1.5);
+	}
+}
+#carousel{
+	perspective: 500px
+}
+

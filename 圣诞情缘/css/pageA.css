@@ -1,0 +1,180 @@
+.moon{
+	background: #FCF0BC;
+	width: 2rem;
+	height: 2rem;
+	border-radius:50%;
+	box-shadow: 0 0 1.5rem #FCF0BC;
+	position: absolute;
+	left: 3.3rem;
+	top: .8rem;
+	animation: nucleus 2s infinite linear;
+}
+@keyframes nucleus{
+	0%{
+		box-shadow: 0 0 0 transparent;
+	}
+	50%{
+		box-shadow: 0 0 1.5rem #FCF0BC;
+	}
+	100%{
+		box-shadow: 0 0 0 transparent;
+	}		
+}
+
+.tree{
+	width: 2.71rem;
+	height: 4.24rem;
+	z-index: 15;
+	background: url(../images/a/trees.png);
+	background-size: 200% 100%;
+	background-position: 0 100%;
+	position: absolute;
+	left: 1rem;
+	bottom: 0;
+	animation:treeAnim 1s infinite steps(2);
+}
+@keyframes treeAnim{
+	0%{
+		background-position: -200% 100%;
+	}
+	100%{
+		background-position: 0 100%;
+	}
+}
+
+.cloudy{
+	background: #60768D;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    left: .5rem;
+    top: 1.8rem;
+    z-index: 5;
+    box-shadow: #60768D 1.2rem -0.2rem 0 -0.1rem, #60768D 0.5rem -0.5rem, #60768D 0.8rem 0.2rem,#60768D 1.5rem 0.2rem 0 -0.2rem;
+	animation: cloudy 5s ease-in-out infinite;;
+}
+@keyframes cloudy{
+	50%{
+		transform: translateY(-0.1rem);
+	}
+}
+
+.chs-boy{
+    width: 5rem;
+    height: 1.5rem;
+    position: absolute;
+    z-index: 3;
+    top: .1rem;
+    right: 3rem;
+    transform: scale(0.5);
+    background: url(../images/a/boy-sleigh-car.png) -300% 100%;
+    background-size: 400% 100%;  
+}
+.chs-boy-deer{	/*雪橇动画*/
+	/*transform: rotateY(-180deg);*/
+	animation: chsBoyDeer 0.75s steps(4) infinite;
+}
+@keyframes chsBoyDeer{
+	0%{
+		background-position: 0 100% ;
+	}
+	100%{
+		background-position: -400% 100% ;
+	}
+}
+.boy-stop-animate {
+	animation-play-state: paused;
+}
+
+/*窗*/
+.window{
+	width: 2.6rem;
+	height: 1.5rem;
+	position: absolute;
+	left: 9.7rem;
+	top: 6.2rem;
+	cursor: pointer;
+	perspective: 500px; 
+	/*z轴 3d*/
+}
+.window-bg {
+    width: 86%;
+    height: 92%;
+    position: absolute;
+    left: 50%;
+    margin-left: -43%;
+    bottom: 0;
+    background: url(../images/b/page-b-bg.png);
+    background-size: 100% 100%;
+    z-index: -1;
+}
+.window:before {
+    content: "";
+    background: url(../images/a/window-bottom.png);
+    width: 100%;
+    height: 0.17rem;
+    display: block;
+    position: absolute;
+    bottom: 0.05rem;
+    background-size: 100% 100%;
+    z-index: 100;
+}
+.window:after {
+    content: "";
+    background: url(../images/a/window-bottom-shadow.png);
+    width: 100%;
+    height: 0.09rem;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background-size: 100% 100%;
+    z-index: 100;
+}
+.wood {
+    display: block;
+    overflow: hidden;
+}
+.window-content {
+    transform-style: preserve-3d;
+    width: 91%;
+    margin: 0 auto;
+    height: 100%;
+}
+.window-left,
+.window-right {
+    width: 1.17rem;
+    height: 1.3rem;
+    z-index: 110;
+    box-shadow: 0 0 0.15rem #FCF0BC;
+    background-size: 100% 100%;
+}
+
+.window-left {
+    float: left;
+    background: url(../images/a/window-left.png);
+	border-top-left-radius: 0.1rem;
+	
+}
+
+.window-right {
+    float: right;
+    background: url(../images/a/window-right.png);
+    border-top-right-radius: 0.1rem;
+}
+
+.window-transition {
+    transition: 2s ease-in-out;
+}
+
+.window-left.hover {
+    transform: scale(0.95) rotateY(60deg);
+    margin-top: 0.1rem;
+    margin-left: -0.25rem;
+}
+
+.window-right.hover {
+    transform: scale(0.95) rotateY(-60deg);
+    margin-top: 0.1rem;
+    margin-right: -0.25rem;
+}
